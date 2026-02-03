@@ -1,0 +1,577 @@
+:root{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --text:#0b1220;
+  --muted:#58627a;
+  --accent:#1e90ff;
+  --border:rgba(10,20,40,.10);
+  --shadow:0 6px 18px rgba(10,20,40,.08);
+  --highlight:#fff3d7; /* 目に優しい淡いクリーム */
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(246,247,251,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:10px 12px}
+.brand{font-weight:900;letter-spacing:.2px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tab{border:1px solid var(--border);background:var(--card);color:var(--text);padding:8px 10px;border-radius:999px;cursor:pointer;box-shadow:var(--shadow)}
+.tab.active{background:var(--accent);border-color:transparent;color:white}
+
+.container{padding:14px 12px 90px;max-width:1180px;margin:0 auto}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px;margin:10px 0;box-shadow:var(--shadow)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.label{color:var(--muted);font-size:12px}
+.small{font-size:12px;color:var(--muted)}
+
+input,select,button{font:inherit}
+input[type="time"],input[type="text"],select{
+  background:#fff;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:8px 10px
+}
+select:disabled,input:disabled{opacity:.55}
+
+.btn{border:1px solid var(--border);background:#fff;color:var(--text);padding:9px 12px;border-radius:10px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:transparent;color:white}
+
+.sectionGrid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap:12px;
+  margin-top:12px;
+}
+.filtersGrid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:12px;
+  margin-top:12px;
+}
+.fitem{display:flex;flex-direction:column;gap:6px}
+
+.tableWrap{overflow:auto}
+.table{width:100%;border-collapse:collapse;min-width:920px}
+.table th,.table td{border-bottom:1px solid var(--border);padding:8px 6px;text-align:left;vertical-align:top}
+.table th{color:var(--muted);font-weight:800;font-size:12px;white-space:nowrap}
+.badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:2px 8px;color:var(--muted);font-size:12px;background:rgba(255,255,255,.85)}
+.badge.now{color:#6a4d00;border-color:rgba(120,90,10,.20);background:rgba(255,243,215,.85)}
+.hidden{display:none}
+
+.footer{position:fixed;bottom:0;left:0;right:0;background:rgba(246,247,251,.92);backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:10px 12px}
+.nameRow{display:flex;align-items:center;gap:8px;white-space:nowrap;overflow:hidden}
+.nameText{font-weight:900;overflow:hidden;text-overflow:ellipsis}
+
+.span2{grid-column: 1 / -1;}
+.spanAll{grid-column: 1 / -1;}
+.checksRow{gap:18px;}
+
+.nowrap{flex-wrap:nowrap}
+
+/* prevent select from forcing large widths */
+.sectionGrid select, .sectionGrid input { min-width: 0; }
+
+
+/* Input with clear button */
+.inputWithClear{ position:relative; display:flex; align-items:center; gap:6px; }
+.inputWithClear input{ flex:1; }
+.clearBtn{ width:34px; height:34px; border:1px solid #d0d0d0; background:#f7f7f7; border-radius:10px; font-size:18px; line-height:1; cursor:pointer; }
+.clearBtn:disabled{ opacity:0.35; cursor:default; }
+.inlineLabel{ font-size:12px; color:#555; white-space:nowrap; }
+
+.manualRow{align-items:flex-end;}
+.manualStack{display:flex;flex-direction:column;gap:4px;}
+.manualStack .inlineLabel{margin:0;white-space:nowrap;}
+.manualRow .manualStack select{min-width:72px;}
+
+.manualRow{align-items:flex-end;}
+
+/* ---- topbar / tabs polish ---- */
+.brand{font-weight:900;letter-spacing:.02em;}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;}
+.tab{
+  border-radius:999px;
+  padding:8px 12px;
+  border:1px solid rgba(0,0,0,.12);
+  background:#fff;
+  font-weight:800;
+}
+.tab.active{
+  border-color:rgba(0,0,0,.22);
+  background:rgba(0,0,0,.04);
+}
+
+/* ---- responsive table: no horizontal scroll on mobile ---- */
+@media (max-width: 640px){
+  .table thead{display:none;}
+  .table, .table tbody, .table tr, .table td{display:block;width:100%;}
+  .table{border:0;}
+  .table tr{
+    border:1px solid rgba(0,0,0,.12);
+    border-radius:14px;
+    padding:10px 12px;
+    margin:10px 0;
+    background:#fff;
+  }
+  .table td{
+    border:0;
+    padding:6px 0;
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .table td::before{
+    content:attr(data-label);
+    font-weight:800;
+    color:rgba(0,0,0,.55);
+    flex:0 0 5.5em;
+  }
+  .table td.td-name{padding-top:2px;}
+  .table td.td-name::before{content:"";}
+  .table td.td-name{display:block;}
+  .table td.td-name .nameRow{display:flex;justify-content:space-between;gap:10px;align-items:center;}
+  .badge{max-width:100%;white-space:normal;}
+}
+
+
+.kindPill{
+  display:inline-block;
+  margin-top:6px;
+  padding:4px 10px;
+  border-radius:999px;
+  background: rgba(0,0,0,0.06);
+  font-size:12px;
+  font-weight:600;
+  color: rgba(0,0,0,0.75);
+}
+
+
+/* v4.1.19 tab readability (segmented control) */
+.tabs{
+  display:flex;
+  gap:10px;
+  padding:0;
+  margin:10px 0 14px;
+  flex-wrap:wrap;
+}
+.tabs button{
+  flex: 0 0 auto;
+  min-width: 96px;
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,0.14);
+  background: rgba(0,0,0,0.04);
+  color: rgba(0,0,0,0.78);
+  font-weight:700;
+  font-size:15px;
+  line-height:1;
+  transition: background-color .12s ease, border-color .12s ease, color .12s ease;
+}
+.tabs button.active{
+  background:#fff;
+  border-color: rgba(0,0,0,0.28);
+  color: rgba(0,0,0,0.92);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+}
+.tabs button:active{opacity:1;}
+
+/* v4.1.19 compact list layout */
+.cRow{
+  display:grid;
+  grid-template-columns: 3.8em 1fr auto;
+  gap:10px;
+  align-items:center;
+  padding:12px 12px;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+}
+.cNo{
+  font-variant-numeric: tabular-nums;
+  color: rgba(0,0,0,0.65);
+  font-weight:700;
+}
+.cChk{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  user-select:none;
+}
+.cChk input{width:18px;height:18px;}
+.cChkLabel{font-size:12px;color:rgba(0,0,0,0.70);font-weight:700;}
+
+body{overflow-x:hidden;}
+
+/* v4.1.21 tabs - clean segmented */
+.tabsWrap{display:flex;justify-content:flex-start;margin:10px 0 16px;}
+.tabs{display:inline-flex;gap:6px;padding:6px;border-radius:999px;background:rgba(0,0,0,0.05);border:1px solid rgba(0,0,0,0.08);}
+.tabs button{appearance:none;border:0;padding:10px 14px;border-radius:999px;background:transparent;color:rgba(0,0,0,0.72);font-weight:800;font-size:15px;letter-spacing:.02em;transition:background-color .12s ease,color .12s ease,transform .06s ease;}
+.tabs button.active{background:#fff;color:rgba(0,0,0,0.92);box-shadow:0 1px 0 rgba(0,0,0,0.03),0 8px 24px rgba(0,0,0,0.06);}
+.tabs button:active{transform:translateY(1px);opacity:1;}
+@media (max-width:430px){.tabs button{padding:10px 12px;font-size:14px;}}
+.nowMark{margin-left:8px;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:900;color:rgba(0,0,0,0.70);background:rgba(255,242,204,0.95);border:1px solid rgba(0,0,0,0.08);}
+
+
+
+/* --- Mobile optimization (2026-02-02) --- */
+html{ -webkit-text-size-adjust:100%; }
+
+.topbar{
+  /* iPhoneノッチ等の安全領域に対応 */
+  padding-top: calc(10px + env(safe-area-inset-top));
+  padding-left: calc(12px + env(safe-area-inset-left));
+  padding-right: calc(12px + env(safe-area-inset-right));
+}
+.footer{
+  padding-left: calc(12px + env(safe-area-inset-left));
+  padding-right: calc(12px + env(safe-area-inset-right));
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+}
+.container{
+  padding-bottom: calc(90px + env(safe-area-inset-bottom));
+}
+
+button, input, select{ touch-action:manipulation; }
+.tabs button, .tab{ min-height:44px; } /* タップしやすい高さ */
+
+input[type="checkbox"]{ width:20px; height:20px; }
+
+@media (max-width: 640px){
+  /* 「カード化」した時に min-width:920px が効いて横スクロールしないように */
+  .table{ min-width:0; }
+  .tableWrap{ overflow:visible; }
+
+  /* 文字が詰まりやすい箇所の折り返し */
+  .nameRow{ white-space:normal; }
+  .badge{ white-space:normal; word-break:break-word; }
+}
+
+@media (max-width: 520px){
+  /* iOS: inputフォーカス時のズーム抑止（16px以上） */
+  input[type="text"], input[type="time"], select, button{ font-size:16px; }
+
+  .brand{ font-size:14px; line-height:1.25; }
+  .tabsWrap{ margin:8px 0 12px; }
+
+  /* 手動日時（Select 2つ + チェック）を縦並びにして崩れにくく */
+  .manualRow{ flex-direction:column; align-items:stretch; gap:10px; }
+  .manualRow .manualStack{ width:100%; }
+  .manualRow .manualStack select{ width:100%; }
+  .anytimeLabel{ width:100%; }
+
+  /* 設定のチェック群は縦並びにして押しやすく */
+  .checksRow{ flex-direction:column; align-items:flex-start; gap:10px; }
+
+  /* クリアボタンのタップ面積 */
+  .clearBtn{ width:40px; height:40px; }
+}
+
+/* ===== header makeover (mobile-first) ===== */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(246,247,251,.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding-top: calc(10px + env(safe-area-inset-top));
+  padding-left: calc(12px + env(safe-area-inset-left));
+  padding-right: calc(12px + env(safe-area-inset-right));
+  padding-bottom: 10px;
+}
+
+.topbarInner{
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+
+.appIcon{
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  flex: 0 0 auto;
+}
+
+.brandText{display:flex; flex-direction:column; line-height:1.1;}
+.brandTitle{font-size: 15px; font-weight: 950;}
+.brandSub{font-size: 12px; color: var(--muted); margin-top: 3px;}
+
+.tabsWrap{width: 100%;}
+.tabs{
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.75);
+  box-shadow: 0 10px 22px rgba(10,20,40,.06);
+}
+
+.tab{
+  flex: 1;
+  min-height: 42px;
+  border: 0;
+  background: transparent;
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-weight: 900;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tabIcon{font-size: 16px; line-height: 1;}
+.tab:active{transform: translateY(1px);}
+
+.tab.active{
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(30,144,255,.25);
+}
+
+/* PCでは “ピル型ボタン” に戻す */
+@media (min-width: 700px){
+  .topbarInner{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tabsWrap{width: auto;}
+  .tabs{
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    gap: 8px;
+  }
+  .tab{
+    flex: initial;
+    min-height: auto;
+    border: 1px solid var(--border);
+    background: var(--card);
+    box-shadow: var(--shadow);
+    padding: 8px 12px;
+  }
+  .tab.active{
+    border-color: transparent;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 10px 22px rgba(30,144,255,.20);
+  }
+}
+
+/* ===== compact list (mobile) : force override ===== */
+.cList{ display:flex; flex-direction:column; gap:8px; }
+.cRow{
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.cHead{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding: 12px 12px;
+}
+
+.cChk{ display:flex; align-items:center; gap:8px; flex:0 0 auto; }
+
+.cMain{
+  min-width: 0;
+  flex: 1 1 auto;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.cTopLine{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+
+.cNo{
+  font-weight: 900;
+  font-size: 12px;
+  color: var(--muted);
+  flex: 0 0 auto;
+}
+
+.cNameBtn{
+  appearance:none;
+  border:0;
+  background:transparent;
+  padding:0;
+  margin:0;
+  text-align:left;
+  font-weight: 950;
+  font-size: 15px;
+  color: var(--text);
+  min-width:0;
+  flex:1 1 auto;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  cursor:pointer;
+}
+
+.cBadges{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+
+.cToggle{
+  flex:0 0 auto;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.7);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-weight: 900;
+  cursor:pointer;
+}
+
+.cDetail{ padding: 0 12px 12px 12px; }
+
+.cGrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:8px;
+  margin-top: 10px;
+}
+
+.cItem{
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.65);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.cLabel{ font-size: 11px; color: var(--muted); font-weight: 900; margin-bottom: 4px; }
+.cVal{ font-size: 13px; font-weight: 900; color: var(--text); word-break: break-word; }
+
+/* ここが重要：テーブルをスマホで確実に消す / リストを出す */
+@media (max-width: 900px){
+  .card .tableWrap{ display:none !important; }
+  .card .cList{ display:flex !important; }
+}
+@media (min-width: 901px){
+  .card .cList{ display:none !important; }
+  .card .tableWrap{ display:block !important; }
+}
+
+
+/* ===== Smart header (mobile-first) v4.1.22 ===== */
+/* 既存の topbar/tabs 定義が複数あるため、末尾でまとめて上書きします */
+
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(246,247,251,.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 8px 22px rgba(10,20,40,.06);
+  padding: calc(10px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) 10px calc(12px + env(safe-area-inset-left));
+  transition: padding .18s ease, box-shadow .18s ease;
+}
+
+.topbarInner{
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.appIcon{
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(10,20,40,.10);
+  flex: 0 0 auto;
+}
+
+.brandText{ min-width:0; display:flex; flex-direction:column; line-height: 1.08; }
+.brandTitle{ font-size: 16px; font-weight: 950; letter-spacing: .02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brandSub{ font-size: 12px; font-weight: 800; color: rgba(0,0,0,.55); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.tabsWrap{ margin: 0; display:flex; justify-content:flex-end; }
+
+.tabs{
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(10,20,40,.06);
+  border: 1px solid rgba(10,20,40,.10);
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+}
+
+.tabs button{
+  appearance: none;
+  border: 0;
+  min-width: 0;
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(0,0,0,.72);
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 1;
+  transition: background-color .12s ease, color .12s ease, transform .06s ease;
+}
+
+.tabs button.active{
+  background: #fff;
+  color: rgba(0,0,0,.92);
+  box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 10px 26px rgba(10,20,40,.08);
+}
+
+.tabs button:active{ transform: translateY(1px); }
+
+/* --- compact (scroll) --- */
+.topbar.compact{
+  padding: calc(6px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) 6px calc(12px + env(safe-area-inset-left));
+  box-shadow: 0 6px 16px rgba(10,20,40,.06);
+}
+.topbar.compact .brandSub{ display:none; }
+.topbar.compact .appIcon{ width: 26px; height: 26px; border-radius: 9px; }
+.topbar.compact .brandTitle{ font-size: 15px; }
+.topbar.compact .tabs{ padding: 5px; }
+.topbar.compact .tabs button{ padding: 8px 10px; font-size: 13px; }
+
+/* --- mobile layout: 2段にして高さを抑えつつ見やすく --- */
+@media (max-width: 640px){
+  .topbar{ padding-bottom: 8px; }
+  .topbarInner{ flex-direction: column; align-items: stretch; gap: 8px; }
+  .tabsWrap{ justify-content: center; }
+  .tabs{ width: 100%; justify-content: space-between; }
+  .tabs button{ flex: 1 1 auto; text-align: center; }
+  .brandSub{ display:none; }
+}
+
+/* 既存のレスポンシブ「テーブルカード化」と干渉しないように、スマホでの余白だけ調整 */
+@media (max-width: 640px){
+  .container{ padding-top: 10px; }
+}
